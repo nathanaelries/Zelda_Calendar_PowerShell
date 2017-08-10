@@ -4,6 +4,7 @@ Zelda II: The Adventure of Link
 A Link to the Past
 Link's Awakening
 Ocarina of Time
+Master Quest
 Majora's Mask
 Oracle of Ages & Oracle of Seasons
 Four Swords
