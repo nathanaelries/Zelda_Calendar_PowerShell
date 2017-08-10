@@ -1,4 +1,4 @@
-$Games = @"
+$Objects = @"
 The Legend of Zelda
 Zelda II: The Adventure of Link
 A Link to the Past
@@ -20,9 +20,7 @@ Breath of the Wild
 "@
 
 # Turn the string into an array
-$Games = ($Games -split '[\r\n]') |? {$_} 
-# Count all of the items in the array
-$Objects = $Games.count
+$Objects = ($Objects -split '[\r\n]') |? {$_} 
 
 Clear-Host
 
@@ -30,19 +28,24 @@ Clear-Host
 $X = 0
 
 # Find whole number of days to be the divisor
-$Div = [math]::floor(366 / $Objects)
+$Div = [math]::floor(366 / ($Objects.count))
 
 # Set initial day, month, and year
 $Year = (Get-Date).Year; $Month = ((Get-Date).Month) ; $DayOfYear = (Get-Date).DayOfYear
 
 # Loop through every object in the array
-for ($j = 0;$j -lt $Objects; $j++){
+for ($j = 0;$j -lt $Objects.Count; $j++){
+    
+    # Fetch the date to start the next object in the array
     $StartOfYear = [datetime]::Parse("$Year-1-1")
     $DayOfMonth = ($StartOfYear.AddDays($DayOfYear - 1)).Day
     $Date_To_Start = ([datetime]::Parse("$Year-$month-$DayOfMonth").ToString("yyyy-MM-dd"))
     
     # Increment the day of year by the divisor
     $DayOfYear = $DayOfYear + $Div
+    
+    # Increment Month; Reset month counter after Dec
+    $month++; if ($Month -gt 12){$Month = 1}
 
     # Subtract the days of the year from the DayOFYear counter depending on leap year 
     if([System.DateTime]::isleapyear(($Year)) -and ($DayOfYear -ge 366)){
@@ -56,11 +59,5 @@ for ($j = 0;$j -lt $Objects; $j++){
     #Output!
     Write-Host ("$Date_To_Start == "+ $Games[$X++] ) 
     
-    $month++
-    
-    # Reset month counter after Dec
-    if ($Month -gt 12){$Month = 1}
 }   
-
 pause
-
