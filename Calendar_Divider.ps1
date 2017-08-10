@@ -39,6 +39,9 @@ for ($j = 0;$j -lt $Objects.Count; $j++){
     # Fetch the date to start the current object in the array
     $Date_To_Start = (([datetime]"01/01/$($Year)").AddDays($DayOfYear - 1).ToString("yyyy-MM-dd"))
     
+    #Output!
+    Write-Host ("$Date_To_Start == "+ $Games[$X++] ) 
+    
     # Increment the day of year by the divisor
     $DayOfYear = $DayOfYear + $Div
 
@@ -49,11 +52,5 @@ for ($j = 0;$j -lt $Objects.Count; $j++){
     }ELSEIF((![System.DateTime]::isleapyear(($Year)) -and ($DayOfYear -gt 365))){
         $DayOfYear = $DayOfYear - 365; $Year++
     }
-    
-    #Output!
-    Write-Host ("$Date_To_Start == "+ $Games[$X++] ) 
-    
 }   
 pause
-
-
