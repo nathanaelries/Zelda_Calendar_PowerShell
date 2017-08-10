@@ -21,9 +21,6 @@ $objects = @{"The Legend of Zelda" = 2
 
 Clear-Host
 
-# Define Counters
-$X = 0
-
 # Set initial year and dayofyear
 $Year = (Get-Date).Year; $DayOfYear = (Get-Date).DayOfYear
 
