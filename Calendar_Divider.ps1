@@ -26,9 +26,6 @@ $Objects = $Games.count
 
 Clear-Host
 
-# Define names of months
-$Name_of_Month = @("Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec")
-
 # Define Counters
 $X = 0
 
@@ -41,11 +38,8 @@ $Year = (Get-Date).Year; $Month = ((Get-Date).Month -1) ; $DayOfYear = (Get-Date
 # Loop through every object in the array
 for ($j = 0;$j -lt $Objects; $j++){
     $StartOfYear = [datetime]::Parse("$Year-1-1")
+    $Date_To_Start = [datetime]::Parse("$Year-$month-$DayOfMonth")
     $DayOfMonth = ($StartOfYear.AddDays($DayOfYear - 1)).Day
-    Write-Host ($Name_of_Month[$Month++] + " $DayOfMonth == "+ $Games[$X++] )
-    
-    # Reset month counter after Dec
-    if ($Month -gt 11){$Month = 0}
     
     # Increment the day of year by the divisor
     $DayOfYear = $DayOfYear + $Div
@@ -58,6 +52,15 @@ for ($j = 0;$j -lt $Objects; $j++){
         $DayOfYear = $DayOfYear - 365
         $Year++
     }
-}
+    
+    #Output!
+    Write-Host ("$Date_To_Start == "+ $Games[$X++] ) 
+    
+    $month++
+    
+    # Reset month counter after Dec
+    if ($Month -gt 12){$Month = 1}
+}   
+
 pause
 
