@@ -33,7 +33,7 @@ $X = 0
 $Div = [math]::floor(366 / $Objects)
 
 # Set initial day, month, and year
-$Year = (Get-Date).Year; $Month = ((Get-Date).Month -1) ; $DayOfYear = (Get-Date).DayOfYear
+$Year = (Get-Date).Year; $Month = ((Get-Date).Month) ; $DayOfYear = (Get-Date).DayOfYear
 
 # Loop through every object in the array
 for ($j = 0;$j -lt $Objects; $j++){
