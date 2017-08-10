@@ -40,7 +40,7 @@ for ($j = 0;$j -lt $Objects.Count; $j++){
     $Date_To_Start = (([datetime]"01/01/$($Year)").AddDays($DayOfYear - 1).ToString("yyyy-MM-dd"))
     
     #Output!
-    Write-Host ("$Date_To_Start == "+ $Games[$X++] ) 
+    Write-Host ("$Date_To_Start == "+ $Objects[$X++] ) 
     
     # Increment the day of year by the divisor
     $DayOfYear = $DayOfYear + $Div
