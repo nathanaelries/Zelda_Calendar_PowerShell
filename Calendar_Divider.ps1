@@ -30,8 +30,8 @@ $X = 0
 # Find whole number of days to be the divisor
 $Div = [math]::floor(366 / ($Objects.count))
 
-# Set initial day, month, and year
-$Year = (Get-Date).Year; $Month = ((Get-Date).Month) ; $DayOfYear = (Get-Date).DayOfYear
+# Set initial year and dayofyear
+$Year = (Get-Date).Year; $DayOfYear = (Get-Date).DayOfYear
 
 # Loop through every object in the array
 for ($j = 0;$j -lt $Objects.Count; $j++){
