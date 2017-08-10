@@ -48,10 +48,10 @@ for ($j = 0;$j -lt $Objects.Count; $j++){
     $month++; if ($Month -gt 12){$Month = 1}
 
     # Subtract the days of the year from the DayOFYear counter depending on leap year 
-    if([System.DateTime]::isleapyear(($Year)) -and ($DayOfYear -ge 366)){
+    if([System.DateTime]::isleapyear(($Year)) -and ($DayOfYear -gt 366)){
         $DayOfYear = $DayOfYear - 366
         $Year++
-    }ELSEIF((![System.DateTime]::isleapyear(($Year)) -and ($DayOfYear -ge 365))){
+    }ELSEIF((![System.DateTime]::isleapyear(($Year)) -and ($DayOfYear -gt 365))){
         $DayOfYear = $DayOfYear - 365
         $Year++
     }
