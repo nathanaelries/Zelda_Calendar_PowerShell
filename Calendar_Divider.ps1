@@ -38,7 +38,8 @@ $Year = (Get-Date).Year; $Month = ((Get-Date).Month) ; $DayOfYear = (Get-Date).D
 # Loop through every object in the array
 for ($j = 0;$j -lt $Objects; $j++){
     $StartOfYear = [datetime]::Parse("$Year-1-1")
-    $Date_To_Start = [datetime]::Parse("$Year-$month-$DayOfMonth")
+    $Date_To_Start = ([datetime]::Parse("$Year-$month-$DayOfMonth").ToString("yyyy-MM-dd"))
+
     $DayOfMonth = ($StartOfYear.AddDays($DayOfYear - 1)).Day
     
     # Increment the day of year by the divisor
