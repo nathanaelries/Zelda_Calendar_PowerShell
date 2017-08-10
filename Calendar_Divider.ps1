@@ -39,21 +39,17 @@ for ($j = 0;$j -lt $Objects.Count; $j++){
     # Fetch the date to start the next object in the array
     $StartOfYear = [datetime]::Parse("$Year-1-1")
     $DayOfMonth = ($StartOfYear.AddDays($DayOfYear - 1)).Day
-    $Date_To_Start = ([datetime]::Parse("$Year-$month-$DayOfMonth").ToString("yyyy-MM-dd"))
+    $Date_To_Start = (([datetime]"01/01/$($Year)").AddDays($DayOfYear - 1).ToString("yyyy-MM-dd"))
     
     # Increment the day of year by the divisor
     $DayOfYear = $DayOfYear + $Div
-    
-    # Increment Month; Reset month counter after Dec
-    $month++; if ($Month -gt 12){$Month = 1}
 
     # Subtract the days of the year from the DayOFYear counter depending on leap year 
     if([System.DateTime]::isleapyear(($Year)) -and ($DayOfYear -gt 366)){
-        $DayOfYear = $DayOfYear - 366
-        $Year++
+        $DayOfYear = $DayOfYear - 366; $Year++
+
     }ELSEIF((![System.DateTime]::isleapyear(($Year)) -and ($DayOfYear -gt 365))){
-        $DayOfYear = $DayOfYear - 365
-        $Year++
+        $DayOfYear = $DayOfYear - 365; $Year++
     }
     
     #Output!
@@ -61,3 +57,5 @@ for ($j = 0;$j -lt $Objects.Count; $j++){
     
 }   
 pause
+
+
