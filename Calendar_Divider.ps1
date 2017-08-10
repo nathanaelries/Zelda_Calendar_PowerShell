@@ -36,7 +36,7 @@ $Year = (Get-Date).Year; $DayOfYear = (Get-Date).DayOfYear
 # Loop through every object in the array
 for ($j = 0;$j -lt $Objects.Count; $j++){
     
-    # Fetch the date to start the next object in the array
+    # Fetch the date to start the current object in the array
     $Date_To_Start = (([datetime]"01/01/$($Year)").AddDays($DayOfYear - 1).ToString("yyyy-MM-dd"))
     
     # Increment the day of year by the divisor
