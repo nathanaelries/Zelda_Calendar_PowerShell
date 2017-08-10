@@ -1,4 +1,4 @@
-﻿$Games = @"
+$Games = @"
 The Legend of Zelda
 Zelda II: The Adventure of Link
 A Link to the Past
@@ -19,44 +19,45 @@ Tri Force Heroes
 Breath of the Wild
 "@
 
+# Turn the string into an array
 $Games = ($Games -split '[\r\n]') |? {$_} 
-
+# Count all of the items in the array
 $Objects = $Games.count
 
 Clear-Host
-if ([System.DateTime]::isleapyear((Get-Date -Format yyyy))){
-$Days_in_Month = @(31,29,31,30,31,30,31,31,30,31,30,31)}ELSE{$Days_in_Month = @(31,28,31,30,31,30,31,31,30,31,30,31)}
+
+# Define names of months
 $Name_of_Month = @("Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec")
+
+# Define Counters
 $X = 0
-$Y = 0
-$Div = [math]::floor((($Days_in_Month | Measure-Object -Sum).sum) / $Objects)
-$StartDay = (Get-Date).DayofYear
-$Counter = 0
-# Loop through every object
-for ($j = 0;$j -lt $Objects){
-    $X = 0
-    $month = $Days_in_Month[$X]
-    $Date += $Name_of_Month[$X]
-    if (!$Counter){$Counter = $Div+1}
-    # Loop through every day of the year
-    for ($i = 0;$i -lt 365;$i++){
-        # if $DIV days haven't passed yet, or if the count hasn't surpassed the current date just increment the counter
-        if ($Counter -lt $Div){
-            $Counter++
-        #  Count has passed the current date, and the counter is greater than or equal to $Div days, Time to output!
-        }ELSEIF($i -ge $StartDay){
-            $Counter = 1
-            $j++
-            Write-Host ($Name_of_Month[$X] +" "+ ($i - $month + $Days_in_Month[$X]) +" == " + $Games[$Y++] )
-        }
-        # if current day of the year minus sum of days of previous months equals zero, it's a new month
-        if ($i - $month -eq 0){
-            $month = $Days_in_Month[$X++] + $i
-        }
-        # The number of objects have all been handled, time to stop!
-        if ($j -eq $Objects){break}
+
+# Find whole number of days to be the divisor
+$Div = [math]::floor(366 / $Objects)
+
+# Set initial day, month, and year
+$Year = (Get-Date).Year; $Month = ((Get-Date).Month -1) ; $DayOfYear = (Get-Date).DayOfYear
+
+# Loop through every object in the array
+for ($j = 0;$j -lt $Objects; $j++){
+    $StartOfYear = [datetime]::Parse("$Year-1-1")
+    $DayOfMonth = ($StartOfYear.AddDays($DayOfYear - 1)).Day
+    Write-Host ($Name_of_Month[$Month++] + " $DayOfMonth == "+ $Games[$X++] )
+    
+    # Reset month counter after Dec
+    if ($Month -gt 11){$Month = 0}
+    
+    # Increment the day of year by the divisor
+    $DayOfYear = $DayOfYear + $Div
+
+    # Subtract the days of the year from the DayOFYear counter depending on leap year 
+    if([System.DateTime]::isleapyear(($Year)) -and ($DayOfYear -ge 366)){
+        $DayOfYear = $DayOfYear - 366
+        $Year++
+    }ELSEIF((![System.DateTime]::isleapyear(($Year)) -and ($DayOfYear -ge 365))){
+        $DayOfYear = $DayOfYear - 365
+        $Year++
     }
-    # Happy New Year!, Start at day 1
-    $StartDay = 1
 }
 pause
+
